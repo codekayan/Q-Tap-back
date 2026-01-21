@@ -12,7 +12,8 @@ class TrustProxies extends Middleware
      *
      * @var array<int, string>|string|null
      */
-    protected $proxies;
+    // Trust all proxies (needed when behind nginx/load balancer) so $request->ip() is the real client IP.
+    protected $proxies = '*';
 
     /**
      * The headers that should be used to detect proxies.

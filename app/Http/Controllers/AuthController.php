@@ -541,7 +541,8 @@ class AuthController extends Controller
                 return response()->json(['error' => 'Unauthorized - Invalid pin or password or phone'], 401);
             }
 
-            $token = Auth::guard('restaurant_user_staff')->login($user);
+            // Generate JWT token explicitly (avoids analyzer warning about guard->login() return type)
+            $token = JWTAuth::fromUser($user);
 
             if ($user->role == 'delivery_rider' && $request['phone'] && $request['phone'] != $user->phone) {
                 return response()->json(['error' => 'Unauthorized - Invalid phone'], 401);
@@ -674,7 +675,8 @@ class AuthController extends Controller
                 return response()->json(['error' => 'Unauthorized - Invalid pin or password or phone'], 401);
             }
 
-            $token = Auth::guard('restaurant_user_staff')->login($user);
+            // Generate JWT token explicitly (avoids analyzer warning about guard->login() return type)
+            $token = JWTAuth::fromUser($user);
 
             if ($user->role == 'delivery_rider' && $request['phone'] && $request['phone'] != $user->phone) {
                 return response()->json(['error' => 'Unauthorized - Invalid phone'], 401);
@@ -759,7 +761,8 @@ class AuthController extends Controller
             Auth::logout();
 
             return response()->json(['success' => true, 'message' => 'Logout successful'])
-                ->cookie('qutap_auth', null, -1);
+                // Must match the cookie attributes used in login() to reliably delete it in browsers
+                ->cookie('qutap_auth', '', -1, '/', '.qutap.co', true, true, false, 'None');
         }
 
         return response()->json(['success' => false, 'message' => 'No user logged in']);

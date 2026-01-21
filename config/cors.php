@@ -19,8 +19,22 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    // For cookie-based auth (qutap_auth) you MUST:
+    // - set supports_credentials => true
+    // - NOT use allowed_origins => ['*']
+    //
+    // Hardcoded allow-list (no env).
+    // NOTE: When supports_credentials=true you cannot use '*'.
+    'allowed_origins' => [
+        'https://qutap.co',
+        'https://www.qutap.co',
+        'https://dashboard.qutap.co',
+        'https://panel.qutap.co',
+        // If you call your API from the browser directly (rare), keep this:
+        'https://api.qutap.co',
+    ],
 
+    // Keep empty; we’re using an explicit allow-list above.
     'allowed_origins_patterns' => [],
 
     'allowed_headers' => ['*'],
@@ -29,6 +43,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];
