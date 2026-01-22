@@ -49,7 +49,7 @@ use App\Http\Controllers\LanguagePreferenceController;
 use App\Http\Middleware\CheckClient;
 
 
-/*majd Bayer
+/*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
