@@ -1,0 +1,54 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
+          script: |
+            cd /var/www/Q-Tap-back
+
+            # Pull latest changes
+            git fetch origin main
+            git reset --hard origin/main
+
+            # Install/update PHP dependencies
+            composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+
+            # Clear and cache configurations
+            php artisan config:clear
+            php artisan cache:clear
+            php artisan route:clear
+            php artisan view:clear
+
+            # Cache for production
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+
+            # Run database migrations (optional - uncomment if needed)
+            # php artisan migrate --force
+
+            # Set proper permissions
+            chown -R www-data:www-data /var/www/Q-Tap-back
+            chmod -R 755 /var/www/Q-Tap-back/storage
+            chmod -R 755 /var/www/Q-Tap-back/bootstrap/cache
+
+            echo "Deployment completed successfully!"
+

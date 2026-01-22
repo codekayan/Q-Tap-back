@@ -294,18 +294,24 @@ class EgyptLocationsSeeder extends Seeder
         ];
 
         foreach ($governorates as $govData) {
-            $governorate = Governorate::create([
-                'name_ar' => $govData['name_ar'],
-                'name_en' => $govData['name_en'],
-                'code' => $govData['code']
-            ]);
+            // Use firstOrCreate to avoid duplicates
+            $governorate = Governorate::firstOrCreate(
+                ['code' => $govData['code']],  // Search by unique code
+                [
+                    'name_ar' => $govData['name_ar'],
+                    'name_en' => $govData['name_en'],
+                ]
+            );
 
             foreach ($govData['cities'] as $cityData) {
-                City::create([
-                    'name_ar' => $cityData['name_ar'],
-                    'name_en' => $cityData['name_en'],
-                    'governorate_id' => $governorate->id
-                ]);
+                // Use firstOrCreate to avoid duplicate cities
+                City::firstOrCreate(
+                    [
+                        'name_en' => $cityData['name_en'],
+                        'governorate_id' => $governorate->id
+                    ],
+                    ['name_ar' => $cityData['name_ar']]
+                );
             }
         }
     }

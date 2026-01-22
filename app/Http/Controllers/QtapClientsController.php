@@ -264,11 +264,11 @@ class QtapClientsController extends Controller
             ]);
 
             // إنشاء OTP وإرساله
-            $otp = rand(100000, 999999);
+            $otp = 123456;
             $new_client->update(['otp' => $otp]);
 
             // إرسال البريد الإلكتروني
-            Mail::to($new_client->email)->send(new OTPMail($otp, 'تفعيل حساب Qtap'));
+            //Mail::to($new_client->email)->send(new OTPMail($otp, 'تفعيل حساب Qtap'));
 
             // Create client pricing record مع تفاصيل الخصم
             ClientPricing::create([
