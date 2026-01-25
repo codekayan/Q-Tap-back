@@ -2,8 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\qtap_admins;
-use App\Models\qtap_affiliate;
+use App\Models\qtap_clients;
 use App\Models\restaurant_user_staff;
 use Closure;
 use Illuminate\Http\Request;
@@ -23,13 +22,7 @@ class CheckUserActive
             return $next($request);
         }
 
-        $user = null;
-
-        if ($userType === 'qtap_admins') {
-            $user = qtap_admins::where('email', $email)->first();
-        } elseif ($userType === 'qtap_affiliates') {
-            $user = qtap_affiliate::where('email', $email)->first();
-        } elseif ($userType === 'qtap_clients') {
+        if ($userType === 'qtap_clients') {
             $query = restaurant_user_staff::where('email', $email);
 
             if ($request->filled('pin')) {
@@ -40,11 +33,15 @@ class CheckUserActive
                 $query->where('brunch_id', $request->input('brunch_id'));
             }
 
-            $user = $query->first();
-        }
+            $staff = $query->first();
 
-        if ($user && $this->isInactive($user->getAttribute('status'))) {
-            return response()->json(['error' => 'User is not active'], 401);
+            if ($staff) {
+                $client = qtap_clients::find($staff->user_id);
+
+                if ($client && $this->isInactive($client->getAttribute('status'))) {
+                    return response()->json(['error' => 'User is not active'], 401);
+                }
+            }
         }
 
         return $next($request);
