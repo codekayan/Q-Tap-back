@@ -49,9 +49,9 @@ class TablesController extends Controller
             // إنشاء السجل
             $table = tables::create($request->only(['brunch_id', 'area_id', 'name', 'size']));
 
-            
+
             // توليد الرابط وإضافته
-            $link = env('APP_URL') . '/api/menu_by_table/' . $table->id . '/' . $table->brunch_id;
+            $link = 'https://api.qutap.co' . '/api/menu_by_table/' . $table->id . '/' . $table->brunch_id;
 
             $table->update(['link' => $link]);
 
