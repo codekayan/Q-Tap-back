@@ -595,3 +595,4 @@ Route::get('/governorates', [GovernorateController::class, 'getGovernorates']);
 Route::get('/governorates/cities/{governorateId}', [GovernorateController::class, 'getCitiesByGovernorate']);
 
 
+Route::get('currency/index', [CurrencyController::class, 'index']);
