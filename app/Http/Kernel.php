@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'check.user.active' => \App\Http\Middleware\CheckUserActive::class,
     ];
 
     protected $routeMiddleware = [
@@ -74,7 +75,8 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\RoleMiddleware::class,
         'admin_or_delivery_rider' => \App\Http\Middleware\AdminOrDeliveryRider::class,
         'detect.user.type' => \App\Http\Middleware\DetectUserType::class,
-        'client' => \App\Http\Middleware\CheckClient::class
+        'client' => \App\Http\Middleware\CheckClient::class,
+        'check.user.active' => \App\Http\Middleware\CheckUserActive::class,
 
 
     ];
