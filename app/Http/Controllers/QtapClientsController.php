@@ -206,7 +206,7 @@ class QtapClientsController extends Controller
             ]);
 
             $validatedData['password'] = Hash::make($request->password);
-            $pin = $validatedData['password'];
+            $pin = $validatedData['pin'];
 
             // حساب التكلفة بناءً على عدد الفروع
             $branches = collect($request->all())->filter(fn($value, $key) => Str::startsWith($key, 'brunch'));
