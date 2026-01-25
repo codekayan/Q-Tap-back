@@ -432,6 +432,8 @@ Route::middleware(['auth:restaurant_user_staff', 'role:admin|delivery_rider'])->
 
 Route::get('order_map/{order_id}', [OrdersProcessingController::class, 'order_map']);
 
+Route::get('tables/{brunch_id}', [TablesController::class, 'index']);
+
 
 Route::middleware('auth:restaurant_user_staff', 'role:admin|cashier|waiter|delivery_rider|chef')->group(function () {
 
@@ -596,4 +598,3 @@ Route::get('/governorates/cities/{governorateId}', [GovernorateController::class
 
 
 Route::get('/all_currencies', [CurrencyController::class, 'index']);
-Route::get('tables/{brunch_id}', [TablesController::class, 'index']);
