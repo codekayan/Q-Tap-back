@@ -14,9 +14,15 @@ class TablesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($brunch_id = null)
     {
-        $tables = tables::all();
+        $tables = tables::query();
+
+        if ($brunch_id !== null) {
+            $tables->where('brunch_id', $brunch_id);
+        }
+
+        $tables = $tables->get();
         return response()->json([
             'success' => true,
             'tables' => $tables

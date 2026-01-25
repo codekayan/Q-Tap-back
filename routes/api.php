@@ -440,6 +440,7 @@ Route::middleware('auth:restaurant_user_staff', 'role:admin|cashier|waiter|deliv
 
 
 Route::middleware('auth:restaurant_user_staff', 'role:admin|cashier')->group(function () {
+    Route::get('tables/{brunch_id}', [TablesController::class, 'index']);
     Route::resource('tables', TablesController::class);
 
     Route::resource('meals_categories', MealsCategoriesController::class);
