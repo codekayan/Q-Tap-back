@@ -32,6 +32,11 @@ return [
         'https://panel.qutap.co',
         // If you call your API from the browser directly (rare), keep this:
         'https://api.qutap.co',
+        // Local development
+        'http://localhost:3000',
+        'http://localhost:5173',
+        'http://127.0.0.1:3000',
+        'http://127.0.0.1:5173',
     ],
 
     // Keep empty; we’re using an explicit allow-list above.
