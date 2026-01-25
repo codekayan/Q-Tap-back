@@ -260,6 +260,7 @@ class QtapClientsController extends Controller
                 'birth_date' => $validatedData['birth_date'] ?? null,
                 'email' => $validatedData['email'],
                 'password' => $validatedData['password'],
+                'status' => 'inactive',
                 'user_type' => $validatedData['user_type'] ?? null,
                 'payment_method' => $request['payment_method'] ?? null,
             ]);

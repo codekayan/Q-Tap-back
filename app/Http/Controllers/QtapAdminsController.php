@@ -53,7 +53,7 @@ class QtapAdminsController extends Controller
 
         $client_after = qtap_clients::with('brunchs')->find($id);
 
-        Mail::to($client->email)->send(new active_account('تم تفعيل الحساب بنجاح'));
+       // Mail::to($client->email)->send(new active_account('تم تفعيل الحساب بنجاح'));
 
         return response()->json([
             'success' => true,
