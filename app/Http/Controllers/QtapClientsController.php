@@ -196,6 +196,7 @@ class QtapClientsController extends Controller
                 'email' => 'required|string|email|max:255|unique:qtap_clients,email',
                 'status' => 'nullable|in:active,inactive',
                 'password' => 'required|string|min:1',
+                'pin' => 'required|string|min:1|max:6',
                 'user_type' => 'nullable|in:qtap_clients',
                 'pricing_id' => 'required|integer|exists:pricings,id',
                 'pricing_way' => 'required|in:monthly_price,yearly_price',
@@ -205,7 +206,7 @@ class QtapClientsController extends Controller
             ]);
 
             $validatedData['password'] = Hash::make($request->password);
-            $pin = 111111;
+            $pin = $validatedData['password'];
 
             // حساب التكلفة بناءً على عدد الفروع
             $branches = collect($request->all())->filter(fn($value, $key) => Str::startsWith($key, 'brunch'));

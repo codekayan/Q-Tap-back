@@ -467,10 +467,10 @@ class AuthController extends Controller
             }
 
             $token = JWTAuth::fromUser($user);
-
-            $otp = rand(100000, 999999);
-            $user->update(['otp' => $otp]);
-            Mail::to($user->email)->send(new OTPMail($otp, 'تأكيد البريد الإلكتروني'));
+            $otp = 123456;
+            //$otp = rand(100000, 999999);
+          //  $user->update(['otp' => $otp]);
+           // Mail::to($user->email)->send(new OTPMail($otp, 'تأكيد البريد الإلكتروني'));
 
             return response()->json([
                 'status' => 'success',
