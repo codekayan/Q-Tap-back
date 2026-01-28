@@ -64,7 +64,7 @@ use App\Http\Middleware\CheckClient;
 //-----------------------------------------AUTH------------------------
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login'])->middleware('check.user.active');
-Route::get('/checkCookies', [AuthController::class, 'checkAuth']);
+Route::post('/checkCookies', [AuthController::class, 'checkAuth']);
 Route::post('/resendOTP', [AuthController::class, 'resendOTP']);
 
 Route::post('/send_phone_otp', [AuthController::class, 'send_phone_otp']);
