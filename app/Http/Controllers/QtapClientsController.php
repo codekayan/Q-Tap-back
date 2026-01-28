@@ -1729,6 +1729,7 @@ class QtapClientsController extends Controller
 
 
         $branchesPerMonth = orders::selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(id) as total_branches')
+            ->where('brunch_id', $id)
             ->whereYear('created_at', date('Y')) // استعلام فقط للسنة الحالية
             ->groupBy('year', 'month')
             ->orderBy('month', 'asc')
