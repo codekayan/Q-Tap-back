@@ -86,11 +86,9 @@ class QtapClientsController extends Controller
         // حساب عدد الفروع الكلي باستخدام الموديل
         $allBranchesCount = qtap_clients_brunchs::count();
 
-        // الحصول على إحصائيات الباقات مع استخدام العلاقات من الموديلات
         $pricingStats = pricing::with(['ClientPricing.client.brunchs'])
             ->get()
             ->map(function ($package) use ($allBranchesCount) {
-                // حساب عدد الفروع باستخدام العلاقات المتداخلة
                 $branchesCount = 0;
                 foreach ($package->ClientPricing as $clientPricing) {
                     $branchesCount += $clientPricing->client->brunchs->count();

@@ -375,13 +375,13 @@ public function store(Request $request)
                 ]
             ];
 
-            $paymobController = new PaymobController();
-            $paymentResponse = $paymobController->processPayment_orders($orderData, $userData);
+          //  $paymobController = new PaymobController();
+         //   $paymentResponse = $paymobController->processPayment_orders($orderData, $userData);
 
             // تحويل JsonResponse إلى array
-            $responseData = json_decode($paymentResponse->getContent(), true);
+          //  $responseData = json_decode($paymentResponse->getContent(), true);
 
-            if ($responseData['status'] == 'success') {
+          /*  if ($responseData['status'] == 'success') {
                 DB::commit();
 
                 event(new notify_msg($order, 'add_order'));
@@ -398,12 +398,12 @@ public function store(Request $request)
                     'status' => 'error',
                     'response' => $responseData
                 ], 500);
-            }
+            }*/
         }
 
         DB::commit();
 
-        event(new notify_msg($order, 'add_order'));
+      //  event(new notify_msg($order, 'add_order'));
 
         return response()->json([
             'success' => true,
