@@ -577,7 +577,7 @@ class AuthController extends Controller
     {
         try {
             if (!$token = $request->cookie('qutap_auth')) {
-                return response()->json(['authenticated' => false], 401);
+                return response()->json(['authenticated' => false]);
             }
 
             // تحديد الجارد بناءً على نوع المستخدم
